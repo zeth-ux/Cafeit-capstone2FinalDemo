@@ -55,7 +55,7 @@ export default function CafeDetail() {
       <div className="container">
         <div className="empty" style={{ margin: '64px 0' }}>
           <p className="h3">카페를 찾을 수 없어요</p>
-          <Link to="/" className="btn btn-secondary btn-sm" style={{ marginTop: 14 }}>
+          <Link to="/explore" className="btn btn-secondary btn-sm" style={{ marginTop: 14 }}>
             카페 둘러보기
           </Link>
         </div>
@@ -79,7 +79,7 @@ export default function CafeDetail() {
       <div className="detail-head">
         <div>
           <div className="crumbs">
-            <Link to="/">카페 탐색</Link> <ChevronRight size={14} /> <span>{cafe.area}</span>
+            <Link to="/explore">카페 탐색</Link> <ChevronRight size={14} /> <span>{cafe.area}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <h1 className="h1">{cafe.name}</h1>

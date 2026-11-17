@@ -11,6 +11,8 @@ const DEFAULTS = {
   saved: ['yeobaek', 'ohu'],
   userReports: [],
   prefs: { quiet: true, wifi: true, outlets: true, solo: true },
+  lang: 'ko',
+  user: null,
 };
 
 function load() {
@@ -36,6 +38,8 @@ export function StoreProvider({ children }) {
   const [userReports, setUserReports] = useState(initial.userReports);
   const [prefs, setPrefs] = useState(initial.prefs);
   const [incoming, setIncoming] = useState([]);
+  const [lang, setLang] = useState(initial.lang);
+  const [user, setUser] = useState(initial.user);
   const [toast, setToast] = useState(null);
   const [now, setNow] = useState(Date.now());
   const toastTimer = useRef();
@@ -48,11 +52,16 @@ export function StoreProvider({ children }) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify({ purpose, saved, userReports, prefs }));
+      localStorage.setItem(KEY, JSON.stringify({ purpose, saved, userReports, prefs, lang, user }));
     } catch {
       /* storage unavailable: demo still works in memory */
     }
-  }, [purpose, saved, userReports, prefs]);
+  }, [purpose, saved, userReports, prefs, lang, user]);
+
+  // t('한국어', 'English')
+  const t = useCallback((ko, en) => (lang === 'en' ? en : ko), [lang]);
+  const login = useCallback((name) => setUser({ name: name || '서연' }), []);
+  const logout = useCallback(() => setUser(null), []);
 
   const setPurpose = useCallback((id) => {
     setPurposeRaw(id);
@@ -69,9 +78,9 @@ export function StoreProvider({ children }) {
     (id) => {
       const on = saved.includes(id);
       setSaved(on ? saved.filter((x) => x !== id) : [...saved, id]);
-      showToast(on ? '저장을 취소했어요' : '즐겨찾기에 저장했어요');
+      showToast(on ? (lang === 'en' ? 'Removed from saved' : '저장을 취소했어요') : lang === 'en' ? 'Saved to favorites' : '즐겨찾기에 저장했어요');
     },
-    [saved, showToast],
+    [saved, showToast, lang],
   );
 
   const addReport = useCallback((report) => {
@@ -92,8 +101,9 @@ export function StoreProvider({ children }) {
     setUserReports([]);
     setIncoming([]);
     setPrefs(DEFAULTS.prefs);
-    showToast('데모를 초기화했어요');
-  }, [showToast]);
+    setUser(null);
+    showToast(lang === 'en' ? 'Demo reset' : '데모를 초기화했어요');
+  }, [showToast, lang]);
 
   // Alt+Shift+R resets the demo (handy before presenting)
   useEffect(() => {
@@ -126,6 +136,13 @@ export function StoreProvider({ children }) {
   );
 
   const value = {
+    lang,
+    setLang,
+    t,
+    user,
+    userName: user?.name || '서연',
+    login,
+    logout,
     purpose,
     setPurpose,
     saved,

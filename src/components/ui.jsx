@@ -1,4 +1,4 @@
-import { Armchair, Bookmark, BookOpen, Check, Laptop, MessagesSquare, Users, Volume2 } from 'lucide-react';
+import { Armchair, Bookmark, BookOpen, Check, Globe, Laptop, MessagesSquare, Users, Volume2 } from 'lucide-react';
 import mark from '../assets/logo-mark.svg';
 import word from '../assets/logo-word.svg';
 import { PURPOSES } from '../data/cafes.js';
@@ -105,6 +105,23 @@ export function SaveButton({ id, className = '' }) {
     >
       <Bookmark size={18} fill={on ? 'currentColor' : 'none'} />
     </button>
+  );
+}
+
+export function LangToggle({ dark = false }) {
+  const { lang, setLang } = useStore();
+  return (
+    <div className={`lang-toggle ${dark ? 'is-dark' : ''}`} role="group" aria-label="Language">
+      <Globe size={15} aria-hidden="true" />
+      {[
+        ['ko', 'KR'],
+        ['en', 'EN'],
+      ].map(([id, label]) => (
+        <button key={id} className={lang === id ? 'is-on' : ''} aria-pressed={lang === id} onClick={() => setLang(id)}>
+          {label}
+        </button>
+      ))}
+    </div>
   );
 }
 

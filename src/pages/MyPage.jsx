@@ -1,4 +1,4 @@
-import { ArrowRight, Radio } from 'lucide-react';
+import { ArrowRight, LogOut, Radio } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
@@ -16,7 +16,7 @@ const PAST_REPORTS = 5;
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const { cafes, saved, userReports, setPurpose, now } = useStore();
+  const { cafes, saved, userReports, setPurpose, now, userName, logout, t } = useStore();
   const [tab, setTab] = useState('saved');
   const savedCafes = saved.map((id) => cafes.find((c) => c.id === id)).filter(Boolean);
   const cafeName = (id) => CAFES.find((c) => c.id === id)?.name;
@@ -24,11 +24,21 @@ export default function MyPage() {
   return (
     <div className="container" style={{ paddingTop: 40, paddingBottom: 40 }}>
       <section className="profile">
-        <span className="avatar">서</span>
+        <span className="avatar">{userName[0]}</span>
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--butter-300)' }}>한양대학교 ERICA</div>
-          <div style={{ fontSize: 28, fontWeight: 800 }}>서연</div>
+          <div style={{ fontSize: 28, fontWeight: 800 }}>{userName}</div>
           <span style={{ fontSize: 13, color: 'rgba(255,255,255,.8)' }}>공부하기 · 조용한 1인석 선호</span>
+          <button
+            className="btn btn-ghost-light btn-sm"
+            style={{ marginTop: 10, height: 32 }}
+            onClick={() => {
+              logout();
+              navigate('/');
+            }}
+          >
+            <LogOut size={14} /> {t('로그아웃', 'Log out')}
+          </button>
         </div>
         <div className="profile-stats">
           <div>
@@ -173,7 +183,7 @@ export default function MyPage() {
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <Radio size={20} />
           <div>
-            <p style={{ fontWeight: 800 }}>서연님이 남긴 작은 기록이,</p>
+            <p style={{ fontWeight: 800 }}>{userName}님이 남긴 작은 기록이,</p>
             <p className="muted" style={{ fontSize: 14 }}>
               다른 학생의 좋은 한 자리를 만들고 있어요.
             </p>

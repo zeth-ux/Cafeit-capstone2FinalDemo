@@ -20,7 +20,7 @@ export default function Saved() {
         <div className="empty">
           <p className="h3">아직 저장한 카페가 없어요</p>
           <p className="muted">마음에 드는 카페의 북마크를 눌러 모아 보세요.</p>
-          <Link to="/" className="btn btn-primary btn-sm" style={{ marginTop: 14 }}>
+          <Link to="/explore" className="btn btn-primary btn-sm" style={{ marginTop: 14 }}>
             카페 둘러보기
           </Link>
         </div>

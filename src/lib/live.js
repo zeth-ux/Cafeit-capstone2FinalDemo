@@ -6,12 +6,13 @@ export function minutesSince(ts, now) {
   return Math.max(0, Math.floor((now - ts) / MIN));
 }
 
-export function ago(ts, now) {
+export function ago(ts, now, lang = 'ko') {
   const m = minutesSince(ts, now);
-  if (m < 1) return '방금 전';
-  if (m < 60) return `${m}분 전`;
+  const en = lang === 'en';
+  if (m < 1) return en ? 'just now' : '방금 전';
+  if (m < 60) return en ? `${m} min ago` : `${m}분 전`;
   const h = Math.floor(m / 60);
-  return `${h}시간 전`;
+  return en ? `${h} h ago` : `${h}시간 전`;
 }
 
 // fresh: < 30 min · recent: < 2 h · stale: < 3 h · none: older / no reports

@@ -24,6 +24,7 @@ Open http://localhost:5173
 
 ## Demo script (~90 s)
 
+0. **Landing (`/`)**: show the KR/EN toggle, then **카페 찾아보기** → fake login (type anything) → the app.
 1. **Home**: pick **공부하기** in the hero, and the list re-ranks (카페 여백 #1, 97점).
 2. Tap **친구 만나기**, and the ranking flips (모임 로스터리 #1). This is the core idea.
 3. Open **카페 여백**, then under 목적 적합도 tap the rows: 97 → 73 as you switch purpose.
@@ -32,7 +33,16 @@ Open http://localhost:5173
 6. **나도 현황 남기기** → 여유 → 조용함 → 제보 등록하기 → **LIVE 피드 보기**: your report is on top, "방금 전".
 7. Stay on 카페 LIVE: a new visitor report slides in every ~40 s.
 
-**Reset before presenting:** press **Alt + Shift + R**, or click **데모 초기화** in the footer.
+**Reset before presenting:** press **Alt + Shift + R**, or click **데모 초기화** in the footer. This also logs you out, so you start from the login.
+
+## Routes
+
+| Path | Page |
+|---|---|
+| `/` | Landing page (KR/EN) |
+| `/login` | Dummy login · `/login?mode=signup` for sign up. Any input works; nothing is sent anywhere. |
+| `/explore` | App home (purpose picker, list + map, picks) |
+| `/recommend`, `/cafe/:id`, `/live`, `/live/report`, `/saved`, `/me` | App pages (need the dummy login) |
 
 ## Project structure
 

@@ -16,7 +16,7 @@ const PREFS = [
 ];
 
 export default function Recommend() {
-  const { purpose, setPurpose, cafes, prefs, setPrefs, now } = useStore();
+  const { purpose, setPurpose, cafes, prefs, setPrefs, now, userName } = useStore();
   const p = purposeById(purpose);
   const active = PREFS.filter((x) => prefs[x.id]);
   const ranked = rankCafes(cafes, purpose).filter((c) => active.every((x) => x.test(c)));
@@ -28,7 +28,7 @@ export default function Recommend() {
         <div className="eyebrow">For you</div>
         <h1 className="h1">맞춤 카페 추천</h1>
         <p className="lead">
-          <b style={{ color: 'var(--ink)' }}>{p.label}</b> 목적과 서연님의 취향으로 고른 카페예요. 조건을 눌러 바로 바꿔 보세요.
+          <b style={{ color: 'var(--ink)' }}>{p.label}</b> 목적과 {userName}님의 취향으로 고른 카페예요. 조건을 눌러 바로 바꿔 보세요.
         </p>
       </div>
 
