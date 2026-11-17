@@ -1,6 +1,7 @@
 import { ArrowRight, Info, Map as MapIcon, Plug, Wifi } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
+import { PageHero, Sticker } from '../components/Decor.jsx';
 import { LiveLine, PurposeChips, purposeById, SaveButton } from '../components/ui.jsx';
 import { won } from '../lib/live.js';
 import { rankCafes, useStore } from '../store.jsx';
@@ -24,15 +25,39 @@ export default function Recommend() {
 
   return (
     <div className="container">
-      <div className="page-head">
-        <div className="eyebrow">For you</div>
-        <h1 className="h1">맞춤 카페 추천</h1>
-        <p className="lead">
-          <b style={{ color: 'var(--ink)' }}>{p.label}</b> 목적과 {userName}님의 취향으로 고른 카페예요. 조건을 눌러 바로 바꿔 보세요.
-        </p>
-      </div>
+      <PageHero
+        eyebrow="For you"
+        pattern="grid"
+        title={
+          <>
+            맞춤 카페 <span className="serif">for you</span>
+          </>
+        }
+        lead={
+          <>
+            <b style={{ color: 'var(--ink)' }}>{p.label}</b> 목적과 {userName}님의 취향으로 고른 카페예요. 조건을 눌러 바로 바꿔 보세요.
+          </>
+        }
+        sticker={
+          top[0] && (
+            <Sticker
+              size={124}
+              text={`${p.label} BEST ✦ `}
+              style={{ right: 48, top: 28, transform: 'rotate(10deg)' }}
+              center={
+                <span>
+                  <span style={{ display: 'block', fontSize: 38 }}>{top[0].scores[purpose]}</span>
+                  <span style={{ fontSize: 12 }}>#1 {top[0].name}</span>
+                </span>
+              }
+            />
+          )
+        }
+      />
 
-      <PurposeChips value={purpose} onChange={setPurpose} />
+      <div style={{ marginTop: 20 }}>
+        <PurposeChips value={purpose} onChange={setPurpose} />
+      </div>
 
       <div className="pref-bar" style={{ marginTop: 16 }}>
         <div className="chips">
@@ -64,6 +89,11 @@ export default function Recommend() {
             <article key={`${purpose}-${c.id}`} className={`rec-card ${i === 0 ? 'top' : ''}`} style={{ animationDelay: `${i * 60}ms` }}>
               <div className="art">
                 <span className={`rank ${i === 0 ? 'r1' : ''}`}>{i + 1}</span>
+                {i === 0 && (
+                  <span className="stamp" style={{ right: 12, bottom: 14 }}>
+                    BEST PICK
+                  </span>
+                )}
                 <CafeArt art={c.art} label={c.name} />
               </div>
               <div className="rec-body">

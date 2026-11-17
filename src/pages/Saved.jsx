@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
+import { PageHero } from '../components/Decor.jsx';
 import { LiveLine, SaveButton, ScorePill } from '../components/ui.jsx';
 import { useStore } from '../store.jsx';
 
@@ -9,13 +10,17 @@ export default function Saved() {
   const list = saved.map((id) => cafes.find((c) => c.id === id)).filter(Boolean);
   return (
     <div className="container" style={{ paddingBottom: 40 }}>
-      <div className="page-head">
-        <div className="eyebrow">My cafe collection</div>
-        <h1 className="h1">다시 가고 싶은 카페</h1>
-        <p className="lead">
-          {list.length}개의 공간을 저장해 두었어요. 오늘의 목적과 LIVE 현황을 한눈에 살펴보세요.
-        </p>
-      </div>
+      <PageHero
+        pattern="dots"
+        eyebrow="My cafe collection"
+        title={
+          <>
+            다시 가고 싶은 <span className="serif">favorites</span>
+          </>
+        }
+        lead={`${list.length}개의 공간을 저장해 두었어요. 오늘의 목적과 LIVE 현황을 한눈에 살펴보세요.`}
+      />
+      <div style={{ height: 32 }} />
       {list.length === 0 ? (
         <div className="empty">
           <p className="h3">아직 저장한 카페가 없어요</p>
@@ -27,8 +32,9 @@ export default function Saved() {
       ) : (
         <div className="saved-grid">
           {list.map((c) => (
-            <article key={c.id} className="saved-card">
-              <div className="art">
+            <article key={c.id} className="saved-card" style={{ position: 'relative', overflow: 'visible' }}>
+              <span className="tape" aria-hidden="true" />
+              <div className="art" style={{ borderRadius: '22px 0 0 22px', overflow: 'hidden' }}>
                 <span style={{ position: 'absolute', top: 12, left: 12, zIndex: 2 }}>
                   <ScorePill cafe={c} purpose={purpose} />
                 </span>

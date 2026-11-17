@@ -2,6 +2,7 @@ import { ArrowRight, LogOut, Radio } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
+import { Topo } from '../components/Decor.jsx';
 import { purposeById } from '../components/ui.jsx';
 import { CAFES, CROWD, NOISE } from '../data/cafes.js';
 import { ago } from '../lib/live.js';
@@ -23,12 +24,13 @@ export default function MyPage() {
 
   return (
     <div className="container" style={{ paddingTop: 40, paddingBottom: 40 }}>
-      <section className="profile">
+      <section className="profile decor-wrap">
+        <Topo color="#E2C96D" opacity={0.2} rings={16} cx={80} cy={50} seed={7} />
         <span className="avatar">{userName[0]}</span>
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--butter-300)' }}>한양대학교 ERICA</div>
           <div style={{ fontSize: 28, fontWeight: 800 }}>{userName}</div>
-          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.8)' }}>공부하기 · 조용한 1인석 선호</span>
+          <span style={{ display: 'block', fontSize: 13, color: 'rgba(255,255,255,.8)' }}>공부하기 · 조용한 1인석 선호</span>
           <button
             className="btn btn-ghost-light btn-sm"
             style={{ marginTop: 10, height: 32 }}
@@ -144,7 +146,7 @@ export default function MyPage() {
           )}
         </div>
 
-        <aside className="taste">
+        <aside className="taste decor-wrap pat-dots">
           <div className="eyebrow">My study taste</div>
           <h2 className="h2" style={{ fontSize: 24 }}>
             나의 공부 취향

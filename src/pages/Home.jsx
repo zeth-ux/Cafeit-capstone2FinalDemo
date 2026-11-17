@@ -3,6 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
 import CafeMap from '../components/CafeMap.jsx';
+import { ArrowNote, Bean, Marquee, Sticker, Swoosh, Topo } from '../components/Decor.jsx';
 import { LiveLine, PurposeChips, PurposeIcon, purposeById, SaveButton, ScorePill } from '../components/ui.jsx';
 import { PURPOSES, SURVEY } from '../data/cafes.js';
 import { isOpen, minutesSince } from '../lib/live.js';
@@ -19,12 +20,16 @@ const FILTERS = [
 function Hero({ onPick }) {
   const { purpose, setPurpose, cafes, allReports, now } = useStore();
   const [q, setQ] = useState('');
+  const topScore = Math.max(...cafes.map((c) => c.scores[purpose]));
   const quietNow = cafes.filter((c) => c.live.state !== 'none' && c.live.noise.key === 'quiet').length;
   const recent = allReports.filter((r) => minutesSince(r.ts, now) < 30).length;
   return (
     <section className="hero">
       <div className="container">
         <div className="hero-card">
+          <Topo color="#6C3100" opacity={0.13} rings={20} cx={30} cy={20} seed={3} />
+          <Bean size={34} style={{ left: '44%', top: 34, transform: 'rotate(20deg)', opacity: 0.85 }} />
+          <Bean size={22} color="#8C0200" style={{ left: '50%', bottom: 40, transform: 'rotate(-30deg)', opacity: 0.7 }} />
           <div className="hero-copy">
             <div className="eyebrow">Cafeit · ERICA Cafe Guide</div>
             <h1 className="hero-title">
@@ -85,6 +90,17 @@ function Hero({ onPick }) {
           <div className="hero-art">
             <CafeArt art={{ variant: 'window', tone: '#3B3626', accent: '#1F1E0A' }} label="창가 자리가 있는 카페 일러스트" />
           </div>
+          <Sticker
+            className="hero-sticker"
+            size={132}
+            text="CAFEIT ✦ ERICA ✦ LIVE ✦ "
+            center={
+              <span>
+                <span style={{ display: 'block', fontSize: 40 }}>{topScore}</span>
+                <span style={{ fontSize: 13 }}>{purposeById(purpose).short} 1위</span>
+              </span>
+            }
+          />
         </div>
       </div>
     </section>
@@ -159,7 +175,12 @@ function Explore({ query, sectionRef }) {
             맞춤 추천 보기 <ArrowRight size={16} />
           </Link>
         </div>
-        <PurposeChips value={purpose} onChange={setPurpose} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <PurposeChips value={purpose} onChange={setPurpose} />
+          <ArrowNote className="hide-sm" flip>
+            눌러 보세요, 순위가 바뀌어요!
+          </ArrowNote>
+        </div>
 
         <div className="explore-bar" style={{ marginTop: 16 }}>
           <div className="chips">
@@ -227,13 +248,19 @@ function Pick() {
   const top = rankCafes(cafes, purpose).slice(0, 3);
   const p = purposeById(purpose);
   return (
-    <section className="section band-dark on-dark">
+    <>
+    <div className="checker butter" />
+    <section className="section band-dark on-dark pat-beans-dark">
       <div className="container">
         <div className="section-head">
           <div>
             <div className="eyebrow">Cafeit pick</div>
-            <h2 className="h2 pick-title">
-              <em>{p.label}</em>에 잘 맞는 카페
+            <h2 className="h2 pick-title" style={{ fontSize: 40 }}>
+              <span className="swoosh-wrap">
+                <em className="poster" style={{ fontWeight: 400 }}>{p.label}</em>
+                <Swoosh color="#8C0200" />
+              </span>
+              에 잘 맞는 카페
             </h2>
             <p className="lead">지금 선택한 목적과 LIVE 현황을 함께 살펴 골랐어요.</p>
           </div>
@@ -272,6 +299,8 @@ function Pick() {
         </div>
       </div>
     </section>
+    <div className="checker butter" />
+    </>
   );
 }
 
@@ -280,7 +309,8 @@ function Note() {
     <section className="section">
       <div className="container">
         <div className="note">
-          <div className="note-copy">
+          <div className="note-copy decor-wrap">
+            <Topo color="#302F03" opacity={0.14} rings={14} cx={20} cy={90} seed={5} />
             <div className="eyebrow">Why Cafeit</div>
             <h2 className="h2">
               좋은 카페를 발견하는
@@ -327,6 +357,10 @@ export default function Home() {
   return (
     <>
       <Hero onPick={goExplore} />
+      <div className="marquee-zone">
+        <Marquee items={['공부하기', '작업하기', '친구 만나기', '쉬어가기', '조용한 1인석', '콘센트 가득', '지금 LIVE', 'ERICA 정문 7분']} />
+        <Marquee items={['STUDY', 'WORK', 'MEET', 'REST', 'QUIET SEATS', 'OUTLETS', 'LIVE NOW', 'NEAR ERICA']} dark={false} tilt={1.2} speed={46} />
+      </div>
       <Explore query={query} sectionRef={exploreRef} />
       <Pick />
       <Note />

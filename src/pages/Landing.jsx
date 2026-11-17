@@ -2,6 +2,7 @@ import { ArrowRight, BarChart3, LogIn, MapPin, Radio, SquarePen } from 'lucide-r
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import HeroTopo from '../components/HeroTopo.jsx';
+import { Marquee, Sticker, Swoosh, Topo } from '../components/Decor.jsx';
 import { ScrollTop } from '../components/Layout.jsx';
 import { LangToggle, Logo, PurposeIcon } from '../components/ui.jsx';
 import { PURPOSES, SURVEY } from '../data/cafes.js';
@@ -79,6 +80,17 @@ export default function Landing() {
       <section className="lp-hero">
         <div className="lp-hero-art" aria-hidden="true">
           <HeroTopo purpose={purpose} />
+          <Sticker
+            className="lp-sticker"
+            size={140}
+            text={t('목적으로 고르는 카페 ✦ ', 'CHOOSE BY PURPOSE ✦ ')}
+            center={
+              <span>
+                <span style={{ display: 'block', fontSize: 34 }}>LIVE</span>
+                <span style={{ fontSize: 12 }}>ERICA</span>
+              </span>
+            }
+          />
         </div>
         <div className="container lp-hero-inner">
           <div className="lp-hero-copy">
@@ -89,7 +101,12 @@ export default function Landing() {
             </Link>
             <h1 className={`lp-title ${lang}`}>
               <span>{t('목적을 고르고.', 'PICK A PURPOSE.')}</span>
-              <span className="accent">{t('딱 맞는 자리 찾고.', 'FIND YOUR SEAT.')}</span>
+              <span className="accent">
+                <span className="swoosh-wrap">
+                  {t('딱 맞는 자리 찾고.', 'FIND YOUR SEAT.')}
+                  <Swoosh />
+                </span>
+              </span>
               <span>{t('지금을 공유해요.', 'SHARE THE VIBE.')}</span>
             </h1>
 
@@ -142,8 +159,13 @@ export default function Landing() {
         </div>
       </section>
 
+      <div className="marquee-zone">
+        <Marquee items={lang === 'en' ? ['STUDY', 'WORK', 'MEET FRIENDS', 'TAKE A BREAK', 'QUIET SEATS', 'OUTLETS EVERYWHERE', 'LIVE NOW', 'NEAR ERICA'] : ['공부하기', '작업하기', '친구 만나기', '쉬어가기', '조용한 1인석', '콘센트 가득', '지금 LIVE', 'ERICA 정문 7분']} />
+        <Marquee items={['STUDY 97', 'WORK 96', 'MEET 97', 'REST 93', '76.9%', '3 TAPS', 'CAFEIT']} dark={false} tilt={1.2} speed={46} />
+      </div>
+
       {/* ---------- How it works ---------- */}
-      <section className="section" id="how">
+      <section className="section pat-grid" id="how">
         <div className="container">
           <div className="eyebrow">{t('이용 방법', 'How it works')}</div>
           <h2 className="h2">{t('별점 말고, 목적으로 고르는 카페', 'Choose by purpose, not by stars')}</h2>
@@ -171,7 +193,8 @@ export default function Landing() {
       </section>
 
       {/* ---------- Purposes ---------- */}
-      <section className="section band-dark on-dark" id="purposes">
+      <div className="checker butter" />
+      <section className="section band-dark on-dark pat-beans-dark" id="purposes">
         <div className="container">
           <div className="section-head">
             <div>
@@ -206,6 +229,8 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      <div className="checker butter" />
 
       {/* ---------- LIVE teaser ---------- */}
       <section className="section" id="live">
@@ -250,8 +275,9 @@ export default function Landing() {
       {/* ---------- Why ---------- */}
       <section className="section" id="why" style={{ paddingTop: 0 }}>
         <div className="container">
-          <div className="lp-why">
-            <div className="lp-why-stat num">{SURVEY.pct}%</div>
+          <div className="lp-why decor-wrap">
+            <Topo color="#302F03" opacity={0.14} rings={16} cx={85} cy={40} seed={4} />
+            <div className="lp-why-stat num poster">{SURVEY.pct}%</div>
             <div>
               <h2 className="h2">{t('목적에 맞는 카페, 찾기 어려웠죠?', 'Finding the right café is hard.')}</h2>
               <p className="lead" style={{ color: '#3d2a17' }}>

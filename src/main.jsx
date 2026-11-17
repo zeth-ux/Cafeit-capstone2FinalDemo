@@ -12,6 +12,21 @@ import Recommend from './pages/Recommend.jsx';
 import Report from './pages/Report.jsx';
 import Saved from './pages/Saved.jsx';
 import { StoreProvider } from './store.jsx';
+// Self-hosted fonts (no Google Fonts request, works on any network).
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/noto-sans-kr/400.css';
+import '@fontsource/noto-sans-kr/500.css';
+import '@fontsource/noto-sans-kr/600.css';
+import '@fontsource/noto-sans-kr/700.css';
+import '@fontsource/noto-sans-kr/800.css';
+import '@fontsource/black-han-sans/400.css';
+import '@fontsource/fraunces/600-italic.css';
+import '@fontsource/fraunces/700-italic.css';
+import '@fontsource/gowun-batang/700.css';
 import './styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

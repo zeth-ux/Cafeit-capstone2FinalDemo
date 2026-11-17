@@ -2,6 +2,7 @@ import { ArrowRight, MessageSquareText, Radio, SquarePen, Volume1, Armchair } fr
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
+import { Marquee, PageHero } from '../components/Decor.jsx';
 import { StatusTrio } from '../components/ui.jsx';
 import { INCOMING_REPORTS } from '../data/cafes.js';
 import { ago, minutesSince } from '../lib/live.js';
@@ -56,19 +57,36 @@ export default function Live() {
 
   return (
     <div className="container">
-      <div className="live-hero">
-        <div>
-          <div className="eyebrow">
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span className="dot is-fresh" /> Cafe live
-            </span>
-          </div>
-          <h1 className="h1">지금, 카페는 어떤가요?</h1>
-          <p className="lead">방금 다녀온 학생들이 알려준 혼잡도와 소음이에요. 오래된 소식은 흐리게 보여드려요.</p>
-        </div>
-        <Link to="/live/report" className="btn btn-primary">
-          <SquarePen size={16} /> 지금 카페 현황 남기기
-        </Link>
+      <PageHero
+        dark
+        pattern="radar"
+        eyebrow={
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <span className="dot is-fresh" /> Cafe live
+          </span>
+        }
+        title={
+          <>
+            지금, 카페는 <span className="serif">어떤가요?</span>
+          </>
+        }
+        lead="방금 다녀온 학생들이 알려준 혼잡도와 소음이에요. 오래된 소식은 흐리게 보여드려요."
+        actions={
+          <Link to="/live/report" className="btn btn-primary">
+            <SquarePen size={16} /> 지금 카페 현황 남기기
+          </Link>
+        }
+      />
+      <div className="marquee-zone" style={{ margin: '4px 0 8px' }}>
+        <Marquee
+          dark={false}
+          tilt={-1}
+          speed={52}
+          items={[...cafes]
+            .filter((c) => c.live.state !== 'none')
+            .sort((a, b) => b.live.latest.ts - a.live.latest.ts)
+            .map((c) => `${c.name} · ${c.live.crowd.label} · ${c.live.noise.label} · ${ago(c.live.latest.ts, now)}`)}
+        />
       </div>
 
       <div className="stat-tiles">

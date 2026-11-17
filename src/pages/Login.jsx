@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
+import { Sticker, Topo } from '../components/Decor.jsx';
 import { LangToggle, Logo } from '../components/ui.jsx';
 import { useStore } from '../store.jsx';
 
@@ -40,7 +41,7 @@ export default function Login() {
 
   return (
     <div className="auth">
-      <div className="auth-form-side">
+      <div className="auth-form-side pat-dots">
         <div className="auth-top">
           <Link to="/" className="link-arrow">
             <ArrowLeft size={15} /> {t('홈으로', 'Back')}
@@ -101,6 +102,8 @@ export default function Login() {
 
       <div className="auth-art" aria-hidden="true">
         <CafeArt art={{ variant: 'hanok', tone: '#E8D2B8', accent: '#6C3100' }} />
+        <Topo color="#FFFFFF" opacity={0.35} rings={18} cx={50} cy={40} seed={6} />
+        <Sticker className="auth-sticker" size={130} text="CAFEIT ✦ ERICA ✦ LIVE ✦ " center={<span style={{ fontSize: 30 }}>☕</span>} />
         <div className="auth-quote">
           <p>{t('“시험 기간에 조용한 1인석을 5분 만에 찾았어요.”', '“Found a quiet solo seat in 5 minutes during exam week.”')}</p>
           <span>{t('서연 · ERICA 3학년', 'Seoyeon · ERICA, 3rd year')}</span>

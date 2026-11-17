@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
 import { MapBase } from '../components/CafeMap.jsx';
+import { Sticker, Topo } from '../components/Decor.jsx';
 import { PurposeIcon, purposeById, StatusTrio } from '../components/ui.jsx';
 import { ATTRIBUTE_LABELS, PURPOSES } from '../data/cafes.js';
 import { ago, hoursLabel, isOpen, won } from '../lib/live.js';
@@ -76,13 +77,16 @@ export default function CafeDetail() {
 
   return (
     <div className="container">
-      <div className="detail-head">
+      <div className="detail-head decor-wrap" style={{ borderRadius: 0 }}>
+        <Topo color="#6C3100" opacity={0.12} rings={12} cx={95} cy={60} seed={2} />
         <div>
           <div className="crumbs">
             <Link to="/explore">카페 탐색</Link> <ChevronRight size={14} /> <span>{cafe.area}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <h1 className="h1">{cafe.name}</h1>
+            <h1 className="h1 poster" style={{ fontSize: 52, fontWeight: 400 }}>
+              {cafe.name}
+            </h1>
             {cafe.partner && <span className="tag tag-partner">제휴 · 음료 10% 할인</span>}
           </div>
           <p className="muted" style={{ marginTop: 4 }}>
@@ -109,6 +113,18 @@ export default function CafeDetail() {
         </div>
       </div>
 
+      <div style={{ position: 'relative' }}>
+      <Sticker
+        className="detail-sticker"
+        size={120}
+        text={`${p.label} ✦ ${cafe.area} ✦ `}
+        center={
+          <span>
+            <span style={{ display: 'block', fontSize: 38 }}>{cafe.scores[purpose]}</span>
+            <span style={{ fontSize: 12 }}>{p.short} 적합도</span>
+          </span>
+        }
+      />
       <div className="gallery">
         <div>
           <CafeArt art={cafe.art} label={`${cafe.name} 내부`} />
@@ -119,6 +135,7 @@ export default function CafeDetail() {
         <div>
           <CafeArt art={cafe.art} shot={2} label={`${cafe.name} 창가`} />
         </div>
+      </div>
       </div>
 
       <nav className="tabs" aria-label="상세 섹션">

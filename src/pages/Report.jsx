@@ -2,6 +2,7 @@ import { Armchair, Check, Users, Volume2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { CAFES, CROWD, NOISE, SEATS } from '../data/cafes.js';
+import { PageHero, Radar } from '../components/Decor.jsx';
 import { useStore } from '../store.jsx';
 
 function RadioCards({ name, options, value, onChange, icon: Icon, four }) {
@@ -37,7 +38,8 @@ export default function Report() {
   if (done) {
     const cafe = getCafe(done.cafeId);
     return (
-      <div className="success">
+      <div className="success decor-wrap" style={{ borderRadius: 32, marginTop: 28 }}>
+        <Radar className="success-radar" color="#4F5B12" />
         <div className="check">
           <Check size={34} strokeWidth={3} />
         </div>
@@ -67,9 +69,16 @@ export default function Report() {
         setDone({ cafeId });
       }}
     >
-      <div className="eyebrow">Cafe live</div>
-      <h1 className="h1">Cafe LIVE 현황 제보</h1>
-      <p className="lead">지금 방문한 카페의 현황을 간단히 공유해 주세요. 3번만 누르면 끝나요.</p>
+      <PageHero
+        pattern="grid"
+        eyebrow="Cafe live"
+        title={
+          <>
+            현황 제보, <span className="serif">3 taps</span>
+          </>
+        }
+        lead="지금 방문한 카페의 현황을 간단히 공유해 주세요. 3번만 누르면 끝나요."
+      />
 
       <div className="field">
         <label className="field-label" htmlFor="cafe">
