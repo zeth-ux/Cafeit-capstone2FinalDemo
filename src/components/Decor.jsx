@@ -40,7 +40,7 @@ export function Radar({ color = '#E2C96D', className = '' }) {
         <circle key={i} cx="300" cy="300" r={30 + i * 34} fill="none" stroke={color} strokeOpacity={0.5 - i * 0.045} strokeWidth="1.2" strokeDasharray={i % 2 ? '4 8' : 'none'} />
       ))}
       <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" />
-      <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" style={{ animationDelay: '3s' }} />
+      <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" style={{ animationDelay: '7s' }} />
       <circle cx="300" cy="300" r="8" fill={color} />
     </svg>
   );

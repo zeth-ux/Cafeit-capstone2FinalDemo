@@ -356,7 +356,7 @@ main {
   inset: 0;
   border-radius: 50%;
   background: var(--red-700);
-  animation: pulse 3.6s var(--ease) infinite;
+  animation: pulse 9s ease-in-out infinite;
 }
 .dot.is-recent {
   background: var(--olive-900);
@@ -368,10 +368,11 @@ main {
 @keyframes pulse {
   0% {
     transform: scale(1);
-    opacity: 0.6;
+    opacity: 0.45;
   }
+  60%,
   100% {
-    transform: scale(2.4);
+    transform: scale(2);
     opacity: 0;
   }
 }
@@ -1890,7 +1891,7 @@ main {
   }
 }
 .lp-halo {
-  animation: halo 5s var(--ease) infinite;
+  animation: halo 9s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -2342,7 +2343,7 @@ body::after {
 }
 .radar-pulse {
   transform-origin: 300px 300px;
-  animation: radar 6s var(--ease) infinite;
+  animation: radar 14s ease-in-out infinite;
 }
 @keyframes radar {
   from {
@@ -2395,7 +2396,7 @@ body::after {
 .sticker-ring {
   width: 100%;
   height: 100%;
-  animation: spin 70s linear infinite;
+  animation: none;
 }
 .sticker-center {
   position: absolute;
@@ -2428,7 +2429,8 @@ body::after {
 }
 .marquee-track {
   display: inline-flex;
-  animation: marquee linear infinite;
+  animation: none !important;
+  transform: translateX(-12%);
 }
 .marquee-group {
   display: inline-flex;

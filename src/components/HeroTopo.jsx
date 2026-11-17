@@ -35,7 +35,7 @@ export default function HeroTopo({ purpose = 'study' }) {
   const ranked = useMemo(() => [...cafes].sort((a, b) => b.scores[purpose] - a.scores[purpose]), [cafes, purpose]);
 
   useEffect(() => {
-    const t = setInterval(() => setActive((a) => (a + 1) % 4), 5000);
+    const t = setInterval(() => setActive((a) => (a + 1) % 4), 9000);
     return () => clearInterval(t);
   }, []);
 
