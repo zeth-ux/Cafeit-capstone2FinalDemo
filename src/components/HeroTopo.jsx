@@ -35,14 +35,14 @@ export default function HeroTopo({ purpose = 'study' }) {
   const ranked = useMemo(() => [...cafes].sort((a, b) => b.scores[purpose] - a.scores[purpose]), [cafes, purpose]);
 
   useEffect(() => {
-    const t = setInterval(() => setActive((a) => (a + 1) % 4), 2200);
+    const t = setInterval(() => setActive((a) => (a + 1) % 4), 5000);
     return () => clearInterval(t);
   }, []);
 
   const pinAt = (c) => iso((c.map.x / 100 - 0.5) * 290, (c.map.y / 100 - 0.5) * 210);
 
   return (
-    <svg viewBox="0 0 860 660" className="lp-topo" role="img" aria-label="ERICA 주변 카페 지도 일러스트">
+    <svg viewBox="0 0 860 660" className="lp-topo" role="img" aria-label="ERICA map illustration">
       <defs>
         <filter id="lpGlow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="6" result="b" />
@@ -58,7 +58,7 @@ export default function HeroTopo({ purpose = 'study' }) {
       </defs>
 
       {rings.map((d, i) => (
-        <path key={i} d={d} fill="none" stroke="#6C3100" strokeOpacity={0.32 - i * 0.012} strokeWidth="1.2" className="lp-ring" style={{ animationDelay: `${i * 60}ms` }} />
+        <path key={i} d={d} fill="none" stroke="#6C3100" strokeOpacity={0.32 - i * 0.012} strokeWidth="1.2" className="lp-ring" style={{ animationDelay: `${i * 90}ms` }} />
       ))}
 
       {/* map tile */}
@@ -85,7 +85,7 @@ export default function HeroTopo({ purpose = 'study' }) {
         const on = i === active;
         const top = i < 4;
         return (
-          <g key={c.id} className="lp-pin" style={{ animationDelay: `${i * 120}ms` }}>
+          <g key={c.id} className="lp-pin" style={{ animationDelay: `${i * 200}ms` }}>
             {on && <circle cx={x} cy={y} r="46" fill="url(#lpHalo)" className="lp-halo" />}
             <ellipse cx={x} cy={y} rx="9" ry="4.5" fill="#302F03" opacity="0.18" />
             <line x1={x} y1={y} x2={x} y2={y - 26} stroke={on ? '#8C0200' : '#302F03'} strokeWidth="2" />

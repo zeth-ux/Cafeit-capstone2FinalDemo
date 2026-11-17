@@ -308,3 +308,160 @@ export const SEATS = {
 };
 
 export const SURVEY = { total: 91, struggle: 70, pct: 76.9 };
+
+// ---------------- English content ----------------
+export const PURPOSE_EN = {
+  study: { label: 'Study', short: 'Study', hint: 'Quiet, outlets everywhere' },
+  work: { label: 'Work', short: 'Work', hint: 'Fast Wi-Fi, sit for hours' },
+  social: { label: 'Meet friends', short: 'Meet', hint: 'Big tables, easy to talk' },
+  rest: { label: 'Take a break', short: 'Rest', hint: 'Comfy seats, nice vibe' },
+};
+
+export const ATTRIBUTE_LABELS_EN = {
+  quiet: 'Quiet',
+  outlets: 'Outlets',
+  wifi: 'Wi-Fi',
+  soloSeats: 'Solo seats',
+  groupSeats: 'Group tables',
+  comfort: 'Comfy seats',
+  space: 'Space',
+  ambience: 'Ambience',
+};
+
+export const CROWD_EN = {
+  free: { label: 'Plenty', desc: 'Lots of seats free' },
+  normal: { label: 'Some', desc: 'A few seats left' },
+  busy: { label: 'Packed', desc: 'Almost full' },
+};
+export const NOISE_EN = {
+  quiet: { label: 'Quiet', desc: 'Great for focus' },
+  normal: { label: 'Moderate', desc: 'Normal chatter' },
+  loud: { label: 'Loud', desc: 'Very noisy' },
+};
+export const SEATS_EN = {
+  '6+': { label: '6+ seats' },
+  '3-5': { label: '3–5 seats' },
+  '1-2': { label: '1–2 seats' },
+  none: { label: 'None' },
+};
+
+export const CAFES_EN = {
+  yeobaek: {
+    name: 'Cafe Yeobaek',
+    area: 'ERICA Main Gate',
+    address: 'Sangnok-gu, Ansan · alley across the Main Gate, 2F',
+    closed: 'Open every day',
+    summary: 'A calm study space with barely any chatter',
+    keyFact: 'Every wall-side solo seat has an outlet',
+    tags: ['Soft music', 'Sunny window seats', 'Great alone', 'Laptop-friendly'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Outlet at every seat', solo: '12 solo seats', toilet: 'Indoor restroom' },
+    reviews: [
+      { author: 'Seoyeon', date: 'Oct 24, 2026', text: 'Came to study alone during exams. The window solo seat had an outlet right there, so charging my laptop was easy, and two textbooks fit fine. I’ll be back whenever I need to focus for hours.' },
+      { author: 'Minjun', date: 'Nov 2, 2026', text: 'Wi-Fi never dropped, great for sorting team-project files. Keep your voice down though — it’s a quiet crowd.' },
+    ],
+  },
+  ohu: {
+    name: 'Afternoon Warmth',
+    area: 'Sa-dong',
+    address: 'Sa-dong, Sangnok-gu · across from Sadong Park, 1F',
+    closed: 'Closed Mondays',
+    summary: 'Big wooden tables, comfy for laptop work',
+    keyFact: 'Stable Wi-Fi and wide wooden tables',
+    tags: ['Wide wooden tables', 'Hanok lattice', 'Stay as long as you like'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Outlets at some seats', solo: '6 solo seats', toilet: 'Indoor restroom' },
+    reviews: [{ author: 'Junho', date: 'Nov 5, 2026', text: 'Tables are wide enough for a laptop and a tablet side by side. The afternoon light is gorgeous.' }],
+  },
+  slowpage: {
+    name: 'Slow Page',
+    area: 'Bono-dong',
+    address: 'Bono-dong, Sangnok-gu · shopping arcade, 3F',
+    closed: 'Open every day',
+    summary: 'A quiet seat between books and coffee',
+    keyFact: 'Book café with a no-talking zone',
+    tags: ['Book café', 'No-talking zone', 'Desk lamps'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Outlets by the windows', solo: '10 solo seats', toilet: 'Restroom in building' },
+    reviews: [{ author: 'Haeun', date: 'Oct 30, 2026', text: 'The no-talking zone is as quiet as a library. Lost track of time browsing the books.' }],
+  },
+  forest: {
+    name: 'Forest Table',
+    area: 'ERICA Back Gate',
+    address: 'Sangnok-gu · up the hill from the Back Gate',
+    closed: 'Closed Tuesdays',
+    summary: 'A cosy spot with a view of the trees',
+    keyFact: 'Sofa seats facing a wall of forest windows',
+    tags: ['Forest view', 'Sofa seats', 'Full of plants'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Outlets at some seats', solo: '4 solo seats', toilet: 'Indoor restroom' },
+    reviews: [{ author: 'Jiwoo', date: 'Nov 8, 2026', text: 'Perfect for zoning out after class. The sofas are so comfy I didn’t want to leave.' }],
+  },
+  moim: {
+    name: 'Moim Roastery',
+    area: 'Handae-ap Stn.',
+    address: 'Sangnok-gu · in front of Handae-ap Station exit 2',
+    closed: 'Open every day',
+    summary: 'The team-project spot with lots of 6-person tables',
+    keyFact: 'Bookable 8-person room',
+    tags: ['6-person tables', 'Team room', 'In-house roastery'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Outlets in rooms and walls', solo: '2 solo seats', toilet: 'Indoor restroom' },
+    reviews: [{ author: 'Minjun', date: 'Nov 10, 2026', text: 'Perfect for a 6-person team meeting. Book the 8-person room in advance.' }],
+  },
+  lounge: {
+    name: 'Lounge 1984',
+    area: 'Handae-ap Stn.',
+    address: 'Sangnok-gu · Handae-ap food alley, 2F',
+    closed: 'Open every day',
+    summary: 'Loud music, lively, made for chatting',
+    keyFact: 'Great desserts, open late',
+    tags: ['Open till midnight', 'Dessert spot', 'Upbeat music'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Almost no outlets', solo: 'No solo seats', toilet: 'Restroom in building' },
+    reviews: [{ author: 'Seoyun', date: 'Nov 1, 2026', text: 'Best place to hang out with friends! Too loud for studying though.' }],
+  },
+  notebook: {
+    name: 'Notebook House',
+    area: 'Sa-dong',
+    address: 'Sa-dong, Sangnok-gu · officetel building, 1F',
+    closed: 'Open every day',
+    summary: 'A work café that even rents out monitors',
+    keyFact: 'Monitor rental · outlets at every seat',
+    tags: ['Monitor rental', 'Outlets everywhere', 'Standing desks'],
+    amenities: { wifi: 'Gigabit Wi-Fi', outlets: 'Outlets at every seat', solo: '16 solo seats', toilet: 'Indoor restroom' },
+    reviews: [{ author: 'Junho', date: 'Nov 12, 2026', text: 'Monitor rental is a game changer. I work here instead of from home.' }],
+  },
+  moonlight: {
+    name: 'Moonlight Garden',
+    area: 'Bono-dong',
+    address: 'Bono-dong, Sangnok-gu · garden café in a quiet street',
+    closed: 'Closed Wednesdays',
+    summary: 'Unwind on a garden terrace in the evening',
+    keyFact: 'Outdoor garden terrace · blankets to borrow',
+    tags: ['Garden terrace', 'Blankets', 'Sunset views'],
+    amenities: { wifi: 'Free Wi-Fi', outlets: 'Almost no outlets', solo: '3 solo seats', toilet: 'Indoor restroom' },
+    reviews: [{ author: 'Haeun', date: 'Oct 28, 2026', text: 'Sitting on the terrace at sunset makes all the exam stress disappear.' }],
+  },
+  brewcampus: {
+    name: 'Brew Campus',
+    area: 'ERICA Student Center',
+    address: 'On campus · Student Center 1F',
+    closed: 'Closed weekends',
+    summary: 'The closest café between classes',
+    keyFact: 'On campus, so it’s the fastest to reach',
+    tags: ['On campus', 'Cheap', 'Takeout'],
+    amenities: { wifi: 'Campus Wi-Fi', outlets: 'Some wall outlets', solo: '8 solo seats', toilet: 'Restroom in building' },
+    reviews: [],
+  },
+};
+
+// English memos for seeded/incoming reports, keyed by Korean memo text.
+export const MEMO_EN = {
+  '창가 1인석이 넉넉해요. 음악도 작아서 공부하기 좋아요.': 'Plenty of window solo seats. Music is low, great for studying.',
+  '공용 테이블에 자리가 조금 남아 있어요. 대화 소리는 적어요.': 'A few spots left at the shared table. Not much chatter.',
+  '대화 금지 존 자리 많이 비어 있어요.': 'Lots of free seats in the no-talking zone.',
+  '소파석 비어 있어요. 햇살 좋아요!': 'Sofa seats are free. Lovely sunlight!',
+  '수업 끝난 시간이라 사람이 많아요. 둘이 앉을 자리만 조금 남았어요.': 'Classes just ended, so it’s busy. Only a couple of seats for two left.',
+  '음악 소리가 커요. 수다 떨기엔 최고.': 'Music is loud. Perfect for chatting.',
+  '모니터 대여석 2자리 남았어요.': '2 monitor seats left.',
+  '테라스 자리 여유로워요.': 'Plenty of room on the terrace.',
+  '방금 단체 손님 나가서 엄청 조용해요.': 'A big group just left, it’s super quiet now.',
+  '디저트 타임이라 자리가 거의 없어요.': 'Dessert rush, almost no seats.',
+  '창가 원목 테이블 비었어요!': 'The wooden window table just opened up!',
+  '점심시간이라 줄이 길어요.': 'Lunch rush, long line.',
+};

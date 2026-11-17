@@ -6,7 +6,7 @@ import { LiveLine, SaveButton, ScorePill } from '../components/ui.jsx';
 import { useStore } from '../store.jsx';
 
 export default function Saved() {
-  const { cafes, saved, purpose, now } = useStore();
+  const { cafes, saved, purpose, now, t } = useStore();
   const list = saved.map((id) => cafes.find((c) => c.id === id)).filter(Boolean);
   return (
     <div className="container" style={{ paddingBottom: 40 }}>
@@ -15,18 +15,18 @@ export default function Saved() {
         eyebrow="My cafe collection"
         title={
           <>
-            다시 가고 싶은 <span className="serif">favorites</span>
+            {t('다시 가고 싶은', 'My')} <span className="serif">favorites</span>
           </>
         }
-        lead={`${list.length}개의 공간을 저장해 두었어요. 오늘의 목적과 LIVE 현황을 한눈에 살펴보세요.`}
+        lead={t(`${list.length}개의 공간을 저장해 두었어요. 오늘의 목적과 LIVE 현황을 한눈에 살펴보세요.`, `You’ve saved ${list.length} places. See today’s fit and live status at a glance.`)}
       />
       <div style={{ height: 32 }} />
       {list.length === 0 ? (
         <div className="empty">
-          <p className="h3">아직 저장한 카페가 없어요</p>
-          <p className="muted">마음에 드는 카페의 북마크를 눌러 모아 보세요.</p>
+          <p className="h3">{t('아직 저장한 카페가 없어요', 'No saved cafés yet')}</p>
+          <p className="muted">{t('마음에 드는 카페의 북마크를 눌러 모아 보세요.', 'Tap the bookmark on any café to save it here.')}</p>
           <Link to="/explore" className="btn btn-primary btn-sm" style={{ marginTop: 14 }}>
-            카페 둘러보기
+            {t('카페 둘러보기', 'Browse cafés')}
           </Link>
         </div>
       ) : (
@@ -47,7 +47,7 @@ export default function Saved() {
                       {c.name}
                     </h2>
                     <p className="muted" style={{ fontSize: 14 }}>
-                      {c.area} · 도보 {c.walk}분
+                      {c.area} · {t(`도보 ${c.walk}분`, `${c.walk} min walk`)}
                     </p>
                   </div>
                   <SaveButton id={c.id} />
@@ -57,7 +57,7 @@ export default function Saved() {
                   {c.keyFact}
                 </p>
                 <Link to={`/cafe/${c.id}`} className="btn btn-secondary btn-block" style={{ marginTop: 'auto' }}>
-                  카페 보기 <ArrowRight size={16} />
+                  {t('카페 보기', 'View café')} <ArrowRight size={16} />
                 </Link>
               </div>
             </article>

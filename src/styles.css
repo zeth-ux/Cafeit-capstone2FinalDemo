@@ -356,7 +356,7 @@ main {
   inset: 0;
   border-radius: 50%;
   background: var(--red-700);
-  animation: pulse 2s var(--ease) infinite;
+  animation: pulse 3.6s var(--ease) infinite;
 }
 .dot.is-recent {
   background: var(--olive-900);
@@ -1060,7 +1060,7 @@ main {
   border-radius: 22px;
   overflow: hidden;
   transition: box-shadow 150ms var(--ease);
-  animation: rise 360ms var(--ease) both;
+  animation: rise 700ms var(--ease) both;
 }
 .rec-card:hover {
   box-shadow: var(--shadow-raise);
@@ -1236,7 +1236,7 @@ main {
   height: 100%;
   background: var(--olive-900);
   border-radius: 8px;
-  transition: width 500ms var(--ease);
+  transition: width 1100ms var(--ease);
 }
 .fit-row .val {
   text-align: right;
@@ -1399,7 +1399,7 @@ main {
   box-shadow: var(--shadow-raise);
 }
 .live-card.is-new {
-  animation: newIn 700ms var(--ease) both;
+  animation: newIn 1200ms var(--ease) both;
   border-color: var(--red-700);
   box-shadow: 0 0 0 3px rgba(140, 2, 0, 0.12);
 }
@@ -1866,7 +1866,7 @@ main {
   overflow: visible;
 }
 .lp-ring {
-  animation: ringIn 900ms var(--ease) both;
+  animation: ringIn 1800ms var(--ease) both;
 }
 @keyframes ringIn {
   from {
@@ -1877,7 +1877,7 @@ main {
   }
 }
 .lp-pin {
-  animation: pinIn 600ms var(--ease) both;
+  animation: pinIn 1100ms var(--ease) both;
 }
 @keyframes pinIn {
   from {
@@ -1890,7 +1890,7 @@ main {
   }
 }
 .lp-halo {
-  animation: halo 2.2s var(--ease) infinite;
+  animation: halo 5s var(--ease) infinite;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -2342,7 +2342,7 @@ body::after {
 }
 .radar-pulse {
   transform-origin: 300px 300px;
-  animation: radar 2.4s var(--ease) infinite;
+  animation: radar 6s var(--ease) infinite;
 }
 @keyframes radar {
   from {
@@ -2395,7 +2395,7 @@ body::after {
 .sticker-ring {
   width: 100%;
   height: 100%;
-  animation: spin 22s linear infinite;
+  animation: spin 70s linear infinite;
 }
 .sticker-center {
   position: absolute;

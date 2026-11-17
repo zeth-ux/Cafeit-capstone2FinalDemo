@@ -40,7 +40,7 @@ export function Radar({ color = '#E2C96D', className = '' }) {
         <circle key={i} cx="300" cy="300" r={30 + i * 34} fill="none" stroke={color} strokeOpacity={0.5 - i * 0.045} strokeWidth="1.2" strokeDasharray={i % 2 ? '4 8' : 'none'} />
       ))}
       <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" />
-      <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" style={{ animationDelay: '1.2s' }} />
+      <circle cx="300" cy="300" r="30" fill="none" stroke={color} strokeWidth="2" className="radar-pulse" style={{ animationDelay: '3s' }} />
       <circle cx="300" cy="300" r="8" fill={color} />
     </svg>
   );
@@ -70,7 +70,7 @@ export function Sticker({ text = 'CAFEIT ✦ ERICA ✦ LIVE ✦ ', center, size 
 }
 
 // Tilted ticker ribbon.
-export function Marquee({ items, dark = true, tilt = -1.6, speed = 38 }) {
+export function Marquee({ items, dark = true, tilt = -1.6, speed = 120 }) {
   const row = [...items, ...items];
   return (
     <div className={`marquee ${dark ? 'is-dark' : 'is-light'}`} style={{ transform: `rotate(${tilt}deg)` }} aria-hidden="true">

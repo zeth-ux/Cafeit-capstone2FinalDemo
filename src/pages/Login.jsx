@@ -27,7 +27,7 @@ export default function Login() {
     if (!ready || loading) return;
     setLoading(true);
     setTimeout(() => {
-      login(signup ? name.trim() : '서연');
+      login(signup ? name.trim() : null);
       navigate(next.startsWith('/') && !next.startsWith('/login') ? next : '/explore', { replace: true });
     }, 700);
   };

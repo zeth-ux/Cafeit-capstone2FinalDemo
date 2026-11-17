@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { CAFES, PURPOSE_PREFS, SEED_REPORTS, scoreFor } from './data/cafes.js';
+import { CAFES, CAFES_EN, PURPOSE_EN, PURPOSES, PURPOSE_PREFS, SEED_REPORTS, scoreFor } from './data/cafes.js';
 import { liveStatus } from './lib/live.js';
 
 const StoreContext = createContext(null);
@@ -60,7 +60,7 @@ export function StoreProvider({ children }) {
 
   // t('한국어', 'English')
   const t = useCallback((ko, en) => (lang === 'en' ? en : ko), [lang]);
-  const login = useCallback((name) => setUser({ name: name || '서연' }), []);
+  const login = useCallback((name) => setUser({ name: name || null }), []);
   const logout = useCallback(() => setUser(null), []);
 
   const setPurpose = useCallback((id) => {
@@ -118,12 +118,14 @@ export function StoreProvider({ children }) {
 
   const cafes = useMemo(
     () =>
-      CAFES.map((c) => {
+      CAFES.map((base) => {
+        const en = lang === 'en' ? CAFES_EN[base.id] : null;
+        const c = en ? { ...base, ...en, reviews: base.reviews.map((r, i) => ({ ...r, ...(en.reviews[i] || {}) })) } : base;
         const reports = allReports.filter((r) => r.cafeId === c.id);
         return {
           ...c,
           reports,
-          live: liveStatus(reports, now),
+          live: liveStatus(reports, now, lang),
           scores: {
             study: scoreFor(c, 'study'),
             work: scoreFor(c, 'work'),
@@ -132,15 +134,17 @@ export function StoreProvider({ children }) {
           },
         };
       }),
-    [allReports, now],
+    [allReports, now, lang],
   );
+
+  const purposes = useMemo(() => PURPOSES.map((p) => (lang === 'en' ? { ...p, ...PURPOSE_EN[p.id] } : p)), [lang]);
 
   const value = {
     lang,
     setLang,
     t,
     user,
-    userName: user?.name || '서연',
+    userName: user?.name || (lang === 'en' ? 'Seoyeon' : '서연'),
     login,
     logout,
     purpose,
@@ -152,6 +156,8 @@ export function StoreProvider({ children }) {
     setPrefs,
     cafes,
     getCafe: (id) => cafes.find((c) => c.id === id),
+    purposes,
+    P: (id) => purposes.find((p) => p.id === id),
     allReports,
     userReports,
     addReport,

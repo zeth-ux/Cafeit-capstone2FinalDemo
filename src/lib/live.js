@@ -1,4 +1,4 @@
-import { CROWD, NOISE, SEATS } from '../data/cafes.js';
+import { CROWD, CROWD_EN, MEMO_EN, NOISE, NOISE_EN, SEATS, SEATS_EN } from '../data/cafes.js';
 
 const MIN = 60 * 1000;
 
@@ -36,7 +36,8 @@ function mode(values) {
 }
 
 // Summarise a café's reports into one status.
-export function liveStatus(reports, now) {
+export function liveStatus(reports, now, lang = 'ko') {
+  const en = lang === 'en';
   const sorted = [...reports].sort((a, b) => b.ts - a.ts);
   const latest = sorted[0];
   const fresh = freshness(latest?.ts, now);
@@ -55,11 +56,15 @@ export function liveStatus(reports, now) {
     count: n,
     confidence,
     latest,
-    crowd: { key: crowd, ...CROWD[crowd] },
-    noise: { key: noise, ...NOISE[noise] },
-    seats: { key: seats, ...SEATS[seats] },
-    memo: sorted.find((r) => r.memo)?.memo || '',
+    crowd: { key: crowd, ...CROWD[crowd], ...(en ? CROWD_EN[crowd] : {}) },
+    noise: { key: noise, ...NOISE[noise], ...(en ? NOISE_EN[noise] : {}) },
+    seats: { key: seats, ...SEATS[seats], ...(en ? SEATS_EN[seats] : {}) },
+    memo: localMemo(sorted.find((r) => r.memo)?.memo || '', lang),
   };
+}
+
+export function localMemo(memo, lang) {
+  return lang === 'en' && MEMO_EN[memo] ? MEMO_EN[memo] : memo;
 }
 
 export function isOpen(cafe, date = new Date()) {
@@ -74,4 +79,4 @@ export function hoursLabel(cafe) {
   return `${f(o)}–${c === 24 ? '24:00' : f(c)}`;
 }
 
-export const won = (n) => `${n.toLocaleString('ko-KR')}원`;
+export const won = (n, lang = 'ko') => (lang === 'en' ? `₩${n.toLocaleString('en-US')}` : `${n.toLocaleString('ko-KR')}원`);

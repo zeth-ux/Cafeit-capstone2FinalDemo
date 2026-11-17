@@ -5,16 +5,11 @@ import HeroTopo from '../components/HeroTopo.jsx';
 import { Marquee, Sticker, Swoosh, Topo } from '../components/Decor.jsx';
 import { ScrollTop } from '../components/Layout.jsx';
 import { LangToggle, Logo, PurposeIcon } from '../components/ui.jsx';
-import { PURPOSES, SURVEY } from '../data/cafes.js';
+import { SURVEY } from '../data/cafes.js';
 import { ago, minutesSince } from '../lib/live.js';
 import { useStore } from '../store.jsx';
 
-const PURPOSE_EN = { study: 'Study', work: 'Work', social: 'Meet friends', rest: 'Take a break' };
-const HINT_EN = { study: 'Quiet, outlets everywhere', work: 'Fast Wi-Fi, sit for hours', social: 'Big tables, easy to talk', rest: 'Comfy seats, nice vibe' };
-const CROWD_EN = { free: 'Plenty of seats', normal: 'Some seats', busy: 'Packed' };
-const NOISE_EN = { quiet: 'Quiet', normal: 'Moderate', loud: 'Loud' };
-
-function useCountUp(target, ms = 900) {
+function useCountUp(target, ms = 1800) {
   const [v, setV] = useState(0);
   useEffect(() => {
     const start = performance.now();
@@ -32,7 +27,7 @@ function useCountUp(target, ms = 900) {
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { t, lang, user, cafes, allReports, now } = useStore();
+  const { t, lang, user, cafes, allReports, now, purposes } = useStore();
   const [purpose, setPurpose] = useState('study');
   const enter = () => navigate(user ? '/explore' : '/login');
 
@@ -40,7 +35,6 @@ export default function Landing() {
   const cafeCount = useCountUp(cafes.length);
   const recentCount = useCountUp(recent);
   const best = [...cafes].filter((c) => c.live.state !== 'none').sort((a, b) => b.scores.study - a.scores.study)[0];
-  const pName = (p) => (lang === 'en' ? PURPOSE_EN[p.id] : p.label);
 
   return (
     <div className="lp">
@@ -145,8 +139,7 @@ export default function Landing() {
                     {t('지금 공부하기 좋은 곳', 'Best for studying right now')} · {best.name}
                   </div>
                   <div className="lp-next-meta">
-                    {best.area} · {t(`도보 ${best.walk}분`, `${best.walk} min walk`)} · {lang === 'en' ? CROWD_EN[best.live.crowd.key] : best.live.crowd.label} ·{' '}
-                    {lang === 'en' ? NOISE_EN[best.live.noise.key] : best.live.noise.label} · {ago(best.live.latest.ts, now, lang)}
+                    {best.area} · {t(`도보 ${best.walk}분`, `${best.walk} min walk`)} · {best.live.crowd.label} · {best.live.noise.label} · {ago(best.live.latest.ts, now, lang)}
                   </div>
                 </div>
                 <div className="lp-next-score">
@@ -161,7 +154,7 @@ export default function Landing() {
 
       <div className="marquee-zone">
         <Marquee items={lang === 'en' ? ['STUDY', 'WORK', 'MEET FRIENDS', 'TAKE A BREAK', 'QUIET SEATS', 'OUTLETS EVERYWHERE', 'LIVE NOW', 'NEAR ERICA'] : ['공부하기', '작업하기', '친구 만나기', '쉬어가기', '조용한 1인석', '콘센트 가득', '지금 LIVE', 'ERICA 정문 7분']} />
-        <Marquee items={['STUDY 97', 'WORK 96', 'MEET 97', 'REST 93', '76.9%', '3 TAPS', 'CAFEIT']} dark={false} tilt={1.2} speed={46} />
+        <Marquee items={['STUDY 97', 'WORK 96', 'MEET 97', 'REST 93', '76.9%', '3 TAPS', 'CAFEIT']} dark={false} tilt={1.2} speed={140} />
       </div>
 
       {/* ---------- How it works ---------- */}
@@ -204,7 +197,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="lp-purposes" role="radiogroup" aria-label={t('방문 목적', 'Purpose')}>
-            {PURPOSES.map((p) => {
+            {purposes.map((p) => {
               const top = [...cafes].sort((a, b) => b.scores[p.id] - a.scores[p.id])[0];
               const on = purpose === p.id;
               return (
@@ -212,8 +205,8 @@ export default function Landing() {
                   <span className="p-icon">
                     <PurposeIcon id={p.id} size={20} />
                   </span>
-                  <span className="lp-purpose-name">{pName(p)}</span>
-                  <span className="lp-purpose-hint">{lang === 'en' ? HINT_EN[p.id] : p.hint}</span>
+                  <span className="lp-purpose-name">{p.label}</span>
+                  <span className="lp-purpose-hint">{p.hint}</span>
                   <span className="lp-purpose-top">
                     <span>
                       #1 · <b>{top.name}</b>
@@ -259,8 +252,7 @@ export default function Landing() {
                   <div style={{ minWidth: 0 }}>
                     <b>{c.name}</b>
                     <div className="muted" style={{ fontSize: 13 }}>
-                      <span className={`tone-${c.live.crowd.tone}`}>{lang === 'en' ? CROWD_EN[c.live.crowd.key] : c.live.crowd.label}</span> ·{' '}
-                      <span className={`tone-${c.live.noise.tone}`}>{lang === 'en' ? NOISE_EN[c.live.noise.key] : c.live.noise.label}</span>
+                      <span className={`tone-${c.live.crowd.tone}`}>{c.live.crowd.label}</span> · <span className={`tone-${c.live.noise.tone}`}>{c.live.noise.label}</span>
                     </div>
                   </div>
                   <span className="muted num" style={{ fontSize: 13, whiteSpace: 'nowrap' }}>

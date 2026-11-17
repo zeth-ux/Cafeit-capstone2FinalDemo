@@ -6,13 +6,13 @@ import CafeArt from './CafeArt.jsx';
 
 // Stylised (not to scale) map of the ERICA area. Coordinates are % of the map.
 const LABELS = [
-  { x: 61, y: 17, t: 'ERICA\n캠퍼스' },
-  { x: 37, y: 31, t: '정문' },
-  { x: 73, y: 7, t: '후문' },
-  { x: 74, y: 30, t: '사동공원' },
-  { x: 86, y: 58, t: '사동' },
-  { x: 16, y: 82, t: '본오동' },
-  { x: 60, y: 94, t: '한대앞역 (4호선)' },
+  { x: 61, y: 17, t: 'ERICA\n캠퍼스', en: 'ERICA\nCampus' },
+  { x: 37, y: 31, t: '정문', en: 'Main Gate' },
+  { x: 73, y: 7, t: '후문', en: 'Back Gate' },
+  { x: 74, y: 30, t: '사동공원', en: 'Sadong Park' },
+  { x: 86, y: 58, t: '사동', en: 'Sa-dong' },
+  { x: 16, y: 82, t: '본오동', en: 'Bono-dong' },
+  { x: 60, y: 94, t: '한대앞역 (4호선)', en: 'Handae-ap Stn. (Line 4)' },
 ];
 
 export function MapBase() {
@@ -45,18 +45,18 @@ export function MapBase() {
 }
 
 export default function CafeMap({ cafes, purpose, activeId, onSelect, dimIds = [] }) {
-  const { showToast } = useStore();
+  const { showToast, t, lang } = useStore();
   const active = cafes.find((c) => c.id === activeId);
   return (
-    <div className="map" aria-label="ERICA 주변 카페 지도">
+    <div className="map" aria-label={t('ERICA 주변 카페 지도', 'Map of cafés near ERICA')}>
       <MapBase />
       {LABELS.map((l) => (
         <span key={l.t} className="map-label" style={{ left: `${l.x}%`, top: `${l.y}%`, whiteSpace: 'pre-line' }}>
-          {l.t}
+          {lang === 'en' ? l.en : l.t}
         </span>
       ))}
-      <button className="btn btn-secondary btn-sm map-refresh" onClick={() => showToast('이 지역의 카페를 다시 찾았어요')}>
-        <RotateCw size={14} /> 이 지역에서 다시 찾기
+      <button className="btn btn-secondary btn-sm map-refresh" onClick={() => showToast(t('이 지역의 카페를 다시 찾았어요', 'Searched this area again'))}>
+        <RotateCw size={14} /> {t('이 지역에서 다시 찾기', 'Search this area')}
       </button>
       {cafes.map((c) => (
         <button
@@ -64,7 +64,7 @@ export default function CafeMap({ cafes, purpose, activeId, onSelect, dimIds = [
           className={`pin ${c.id === activeId ? 'is-active' : ''} ${dimIds.includes(c.id) ? 'is-dim' : ''}`}
           style={{ left: `${c.map.x}%`, top: `${c.map.y}%` }}
           onClick={() => onSelect(c.id)}
-          aria-label={`${c.name}, 적합도 ${c.scores[purpose]}점`}
+          aria-label={t(`${c.name}, 적합도 ${c.scores[purpose]}점`, `${c.name}, fit ${c.scores[purpose]}`)}
         >
           <span className="bubble num">{c.scores[purpose]}</span>
           <span className="tip" />
@@ -78,10 +78,10 @@ export default function CafeMap({ cafes, purpose, activeId, onSelect, dimIds = [
           <div style={{ minWidth: 0 }}>
             <div className="h3">{active.name}</div>
             <div className="muted" style={{ fontSize: 13 }}>
-              {active.area} · 도보 {active.walk}분 · {hoursLabel(active)}
+              {active.area} · {t(`도보 ${active.walk}분`, `${active.walk} min walk`)} · {hoursLabel(active)}
             </div>
             <Link to={`/cafe/${active.id}`} className="link-arrow" style={{ marginTop: 4 }}>
-              상세 정보 보기 →
+              {t('상세 정보 보기 →', 'View details →')}
             </Link>
           </div>
         </div>
