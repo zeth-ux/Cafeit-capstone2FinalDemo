@@ -3,8 +3,10 @@ dist/
 build/
 .env
 .env.*
+.vercel
 .DS_Store
 Thumbs.db
 desktop.ini
 .vscode/
 *.log
+*.zip
