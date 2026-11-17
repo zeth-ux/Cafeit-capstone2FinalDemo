@@ -144,7 +144,7 @@ export function StoreProvider({ children }) {
     setLang,
     t,
     user,
-    userName: user?.name || (lang === 'en' ? 'Seoyeon' : '서연'),
+    userName: user?.name && user.name !== '서연' ? user.name : lang === 'en' ? 'Seoyeon' : '서연',
     login,
     logout,
     purpose,

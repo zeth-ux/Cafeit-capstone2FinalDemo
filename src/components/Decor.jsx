@@ -69,20 +69,16 @@ export function Sticker({ text = 'CAFEIT ✦ ERICA ✦ LIVE ✦ ', center, size 
   );
 }
 
-// Tilted ticker ribbon.
-export function Marquee({ items, dark = true, tilt = -1.6, speed = 120 }) {
-  const row = [...items, ...items];
+// Tilted ribbon (static, no animation).
+export function Marquee({ items, dark = true, tilt = -1.6 }) {
+  const row = [...items, ...items, ...items];
   return (
     <div className={`marquee ${dark ? 'is-dark' : 'is-light'}`} style={{ transform: `rotate(${tilt}deg)` }} aria-hidden="true">
-      <div className="marquee-track" style={{ animationDuration: `${speed}s` }}>
-        {[0, 1].map((k) => (
-          <span key={k} className="marquee-group">
-            {row.map((t, i) => (
-              <span key={i}>
-                {t}
-                <i>✦</i>
-              </span>
-            ))}
+      <div className="marquee-row">
+        {row.map((t, i) => (
+          <span key={i}>
+            {t}
+            <i>✦</i>
           </span>
         ))}
       </div>

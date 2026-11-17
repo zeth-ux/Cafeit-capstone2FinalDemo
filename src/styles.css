@@ -2427,15 +2427,11 @@ body::after {
   background: var(--butter-300);
   color: var(--olive-900);
 }
-.marquee-track {
+.marquee-row {
   display: inline-flex;
-  animation: none !important;
-  transform: translateX(-12%);
+  margin-left: -40px;
 }
-.marquee-group {
-  display: inline-flex;
-}
-.marquee-group > span {
+.marquee-row > span {
   font-family: var(--font-poster);
   font-size: 24px;
   line-height: 1;
@@ -2443,16 +2439,11 @@ body::after {
   display: inline-flex;
   align-items: center;
 }
-.marquee-group i {
+.marquee-row i {
   font-style: normal;
   margin: 0 18px;
   opacity: 0.8;
   font-size: 18px;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
 }
 .marquee-zone {
   position: relative;
@@ -2802,7 +2793,7 @@ body::after {
   .page-hero .sticker {
     display: none;
   }
-  .marquee-group > span {
+  .marquee-row > span {
     font-size: 18px;
   }
   .lang-toggle {
