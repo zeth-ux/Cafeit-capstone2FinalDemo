@@ -29,6 +29,13 @@ import '@fontsource/fraunces/700-italic.css';
 import '@fontsource/gowun-batang/700.css';
 import './styles.css';
 
+try {
+  const saved = JSON.parse(localStorage.getItem('cafeit-demo-v1') || '{}');
+  if (saved.theme) document.documentElement.dataset.theme = saved.theme;
+} catch {
+  /* ignore */
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StoreProvider>

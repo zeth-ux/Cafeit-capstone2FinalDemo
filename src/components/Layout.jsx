@@ -2,7 +2,7 @@ import { Bookmark, Compass, Map, Radio, User } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useStore } from '../store.jsx';
-import { LangToggle, Logo, Toast } from './ui.jsx';
+import { LangToggle, Logo, ThemeToggle, Toast } from './ui.jsx';
 
 function useNav() {
   const { t } = useStore();
@@ -49,6 +49,7 @@ export default function Layout() {
             <span className="chip chip-location hide-sm">
               <Map size={15} aria-hidden="true" /> {t('한양대학교 · 안산', 'Hanyang ERICA')}
             </span>
+            <ThemeToggle />
             <LangToggle />
             <Link to="/me" className="user">
               <span className="avatar">{userName[0]}</span>

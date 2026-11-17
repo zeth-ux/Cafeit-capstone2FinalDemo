@@ -13,6 +13,7 @@ const DEFAULTS = {
   prefs: { quiet: true, wifi: true, outlets: true, solo: true },
   lang: 'ko',
   user: null,
+  theme: 'light',
 };
 
 function load() {
@@ -40,6 +41,13 @@ export function StoreProvider({ children }) {
   const [incoming, setIncoming] = useState([]);
   const [lang, setLang] = useState(initial.lang);
   const [user, setUser] = useState(initial.user);
+  const [theme, setTheme] = useState(initial.theme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#15130C' : '#302F03');
+  }, [theme]);
   const [toast, setToast] = useState(null);
   const [now, setNow] = useState(Date.now());
   const toastTimer = useRef();
@@ -52,11 +60,11 @@ export function StoreProvider({ children }) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify({ purpose, saved, userReports, prefs, lang, user }));
+      localStorage.setItem(KEY, JSON.stringify({ purpose, saved, userReports, prefs, lang, user, theme }));
     } catch {
       /* storage unavailable: demo still works in memory */
     }
-  }, [purpose, saved, userReports, prefs, lang, user]);
+  }, [purpose, saved, userReports, prefs, lang, user, theme]);
 
   // t('한국어', 'English')
   const t = useCallback((ko, en) => (lang === 'en' ? en : ko), [lang]);
@@ -140,6 +148,9 @@ export function StoreProvider({ children }) {
   const purposes = useMemo(() => PURPOSES.map((p) => (lang === 'en' ? { ...p, ...PURPOSE_EN[p.id] } : p)), [lang]);
 
   const value = {
+    theme,
+    setTheme,
+    toggleTheme: () => setTheme((x) => (x === 'dark' ? 'light' : 'dark')),
     lang,
     setLang,
     t,

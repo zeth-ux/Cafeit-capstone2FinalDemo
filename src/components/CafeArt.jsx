@@ -242,7 +242,7 @@ export default function CafeArt({ art, shot = 0, label }) {
   const { variant, tone, accent } = art;
   const sky = variant === 'garden' ? ['#D9E7C4', '#9FB477'] : variant === 'lounge' ? ['#F4D9C8', '#D9A98C'] : ['#F5F2EA', '#D7E0EA'];
   return (
-    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style={{ width: '100%', height: '100%' }}>
+    <svg className="cafe-art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style={{ width: '100%', height: '100%' }}>
       <defs>
         <linearGradient id={ids.wall} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={mix(tone, 0.25)} />

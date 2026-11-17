@@ -1,6 +1,7 @@
-import { Armchair, Bookmark, BookOpen, Check, Globe, Laptop, MessagesSquare, Users, Volume2 } from 'lucide-react';
+import { Armchair, Bookmark, BookOpen, Check, Globe, Laptop, MessagesSquare, Moon, Sun, Users, Volume2 } from 'lucide-react';
 import mark from '../assets/logo-mark.svg';
 import word from '../assets/logo-word.svg';
+import wordDark from '../assets/logo-word-dark.svg';
 import { ago } from '../lib/live.js';
 import { useStore } from '../store.jsx';
 
@@ -8,7 +9,8 @@ export function Logo() {
   return (
     <span className="logo" aria-label="Cafeit">
       <img className="mark" src={mark} alt="" />
-      <img className="word" src={word} alt="Cafeit" />
+      <img className="word word-light" src={word} alt="Cafeit" />
+      <img className="word word-dark" src={wordDark} alt="" />
     </span>
   );
 }
@@ -122,6 +124,16 @@ export function LangToggle({ dark = false }) {
         </button>
       ))}
     </div>
+  );
+}
+
+export function ThemeToggle() {
+  const { theme, toggleTheme, t } = useStore();
+  const dark = theme === 'dark';
+  return (
+    <button className="theme-toggle" onClick={toggleTheme} aria-pressed={dark} aria-label={dark ? t('라이트 모드로 전환', 'Switch to light mode') : t('나이트 모드로 전환', 'Switch to night mode')} title={dark ? t('라이트 모드', 'Light mode') : t('나이트 모드', 'Night mode')}>
+      {dark ? <Sun size={17} /> : <Moon size={17} />}
+    </button>
   );
 }
 

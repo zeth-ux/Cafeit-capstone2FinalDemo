@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import HeroTopo from '../components/HeroTopo.jsx';
 import { Marquee, Sticker, Swoosh, Topo } from '../components/Decor.jsx';
 import { ScrollTop } from '../components/Layout.jsx';
-import { LangToggle, Logo, PurposeIcon } from '../components/ui.jsx';
+import { LangToggle, Logo, PurposeIcon, ThemeToggle } from '../components/ui.jsx';
 import { SURVEY } from '../data/cafes.js';
 import { ago, minutesSince } from '../lib/live.js';
 import { useStore } from '../store.jsx';
@@ -51,6 +51,7 @@ export default function Landing() {
             <a href="#why">{t('왜 Cafeit', 'Why Cafeit')}</a>
           </nav>
           <div className="lp-actions">
+            <ThemeToggle />
             <LangToggle />
             {user ? (
               <Link to="/explore" className="btn btn-primary btn-sm">
@@ -272,7 +273,7 @@ export default function Landing() {
             <div className="lp-why-stat num poster">{SURVEY.pct}%</div>
             <div>
               <h2 className="h2">{t('목적에 맞는 카페, 찾기 어려웠죠?', 'Finding the right café is hard.')}</h2>
-              <p className="lead" style={{ color: '#3d2a17' }}>
+              <p className="lead" style={{ color: 'var(--note-ink)' }}>
                 {t(
                   `ERICA 학생 ${SURVEY.total}명 중 ${SURVEY.struggle}명이 방문 목적에 맞는 카페를 찾기 어렵다고 답했어요. Cafeit은 그 문제에서 시작했어요.`,
                   `${SURVEY.struggle} of ${SURVEY.total} ERICA students we surveyed said they struggle to find a café that fits why they’re going. Cafeit started there.`,

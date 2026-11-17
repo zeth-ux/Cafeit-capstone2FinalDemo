@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import CafeArt from '../components/CafeArt.jsx';
 import { Sticker, Topo } from '../components/Decor.jsx';
-import { LangToggle, Logo } from '../components/ui.jsx';
+import { LangToggle, Logo, ThemeToggle } from '../components/ui.jsx';
 import { useStore } from '../store.jsx';
 
 // Dummy login: any ID + password gets you in. Nothing is sent or stored
@@ -46,7 +46,10 @@ export default function Login() {
           <Link to="/" className="link-arrow">
             <ArrowLeft size={15} /> {t('홈으로', 'Back')}
           </Link>
-          <LangToggle />
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ThemeToggle />
+            <LangToggle />
+          </div>
         </div>
 
         <form className="auth-card" onSubmit={submit}>
