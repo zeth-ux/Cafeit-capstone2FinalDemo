@@ -1,4 +1,5 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
+import { PHOTOS, SCENE_PHOTOS } from '../data/cafes.js';
 
 // Placeholder café "photos": warm, flat illustrations in the brand palette.
 // Replace with real photos later by swapping this component for <img>.
@@ -236,10 +237,20 @@ function DetailShot({ variant, tone, accent, ids }) {
   );
 }
 
-export default function CafeArt({ art, shot = 0, label }) {
+export function photoUrl(photoId, w = 900) {
+  return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&w=${w}&q=72`;
+}
+
+// Real photo when we have one (cafe id or scene name), drawn illustration as fallback.
+export default function CafeArt({ art, shot = 0, label, id, scene, w = 900 }) {
+  const [failed, setFailed] = useState(false);
+  const photoId = scene ? SCENE_PHOTOS[scene] : id ? PHOTOS[id]?.[shot] : null;
   const uid = useId().replace(/:/g, '');
+  if (photoId && !failed) {
+    return <img className="cafe-photo" src={photoUrl(photoId, w)} alt={label || ''} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
+  }
   const ids = { wall: `w${uid}`, sky: `s${uid}`, glow: `g${uid}` };
-  const { variant, tone, accent } = art;
+  const { variant, tone, accent } = art || { variant: 'window', tone: '#E8D2B8', accent: '#6C3100' };
   const sky = variant === 'garden' ? ['#D9E7C4', '#9FB477'] : variant === 'lounge' ? ['#F4D9C8', '#D9A98C'] : ['#F5F2EA', '#D7E0EA'];
   return (
     <svg className="cafe-art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} style={{ width: '100%', height: '100%' }}>

@@ -96,7 +96,7 @@ export default function Recommend() {
                     BEST PICK
                   </span>
                 )}
-                <CafeArt art={c.art} label={c.name} />
+                <CafeArt art={c.art} id={c.id} label={c.name} />
               </div>
               <div className="rec-body">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>

@@ -158,7 +158,7 @@ export default function Live() {
                     <span className={`dot is-${c.live.state}`} />
                     {latest && c.live.state !== 'none' ? t(`${ago(latest.ts, now)} 방문자 업데이트`, `Updated ${ago(latest.ts, now, 'en')}`) : t('최근 제보 없음', 'No recent reports')}
                   </span>
-                  <CafeArt art={c.art} label={c.name} />
+                  <CafeArt art={c.art} id={c.id} label={c.name} />
                 </div>
                 <div className="live-body" style={{ opacity: c.live.state === 'stale' ? 0.7 : 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>

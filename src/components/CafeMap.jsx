@@ -73,7 +73,7 @@ export default function CafeMap({ cafes, purpose, activeId, onSelect, dimIds = [
       {active && (
         <div className="map-preview">
           <div className="thumb">
-            <CafeArt art={active.art} label={active.name} />
+            <CafeArt art={active.art} id={active.id} label={active.name} />
           </div>
           <div style={{ minWidth: 0 }}>
             <div className="h3">{active.name}</div>

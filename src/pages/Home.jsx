@@ -91,7 +91,7 @@ function Hero({ onPick }) {
             </p>
           </div>
           <div className="hero-art">
-            <CafeArt art={{ variant: 'window', tone: '#3B3626', accent: '#1F1E0A' }} label={t('창가 자리가 있는 카페 일러스트', 'Illustration of a café with window seats')} />
+            <CafeArt scene="hero" w={1400} art={{ variant: 'window', tone: '#3B3626', accent: '#1F1E0A' }} label={t('창가 자리가 있는 카페 일러스트', 'Illustration of a café with window seats')} />
           </div>
           <Sticker
             className="hero-sticker"
@@ -116,7 +116,7 @@ function CafeRow({ cafe, purpose, active, onHover, now }) {
   return (
     <article className={`cafe-row ${active ? 'is-active' : ''}`} onMouseEnter={onHover} onFocus={onHover} onClick={() => navigate(`/cafe/${cafe.id}`)}>
       <div className="thumb">
-        <CafeArt art={cafe.art} label={cafe.name} />
+        <CafeArt art={cafe.art} id={cafe.id} label={cafe.name} />
       </div>
       <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
         <div>
@@ -277,7 +277,7 @@ function Pick() {
                 <div className="art">
                   <span className={`rank ${i === 0 ? 'r1' : ''}`}>{i + 1}</span>
                   <SaveButton id={c.id} className="over-save" />
-                  <CafeArt art={c.art} label={c.name} />
+                  <CafeArt art={c.art} id={c.id} label={c.name} />
                 </div>
                 <div className="pick-body">
                   <div className="top">
@@ -348,7 +348,7 @@ function Note() {
             </Link>
           </div>
           <div className="note-art">
-            <CafeArt art={{ variant: 'hanok', tone: '#E8D2B8', accent: '#7A4A24' }} label={t('한옥 창살이 있는 카페 일러스트', 'Illustration of a café with hanok lattice windows')} />
+            <CafeArt scene="note" w={1200} art={{ variant: 'hanok', tone: '#E8D2B8', accent: '#7A4A24' }} label={t('한옥 창살이 있는 카페 일러스트', 'Illustration of a café with hanok lattice windows')} />
           </div>
         </div>
       </div>

@@ -94,7 +94,7 @@ export default function MyPage() {
                   {savedCafes.map((c) => (
                     <Link to={`/cafe/${c.id}`} key={c.id} className="mini-card">
                       <div className="thumb">
-                        <CafeArt art={c.art} label={c.name} />
+                        <CafeArt art={c.art} id={c.id} label={c.name} />
                       </div>
                       <div>
                         <div className="h3">{c.name}</div>

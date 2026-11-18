@@ -38,7 +38,7 @@ export default function Saved() {
                 <span style={{ position: 'absolute', top: 12, left: 12, zIndex: 2 }}>
                   <ScorePill cafe={c} purpose={purpose} />
                 </span>
-                <CafeArt art={c.art} label={c.name} />
+                <CafeArt art={c.art} id={c.id} label={c.name} />
               </div>
               <div className="body">
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>

@@ -104,7 +104,7 @@ export default function Login() {
       </div>
 
       <div className="auth-art" aria-hidden="true">
-        <CafeArt art={{ variant: 'hanok', tone: '#E8D2B8', accent: '#6C3100' }} />
+        <CafeArt scene="login" w={1400} art={{ variant: 'hanok', tone: '#E8D2B8', accent: '#6C3100' }} label="" />
         <Topo color="#FFFFFF" opacity={0.35} rings={18} cx={50} cy={40} seed={6} />
         <Sticker className="auth-sticker" size={130} text="CAFEIT ✦ ERICA ✦ LIVE ✦ " center={<span style={{ fontSize: 30 }}>☕</span>} />
         <div className="auth-quote">

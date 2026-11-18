@@ -127,13 +127,13 @@ export default function CafeDetail() {
         />
         <div className="gallery">
           <div>
-            <CafeArt art={cafe.art} label={t(`${cafe.name} 내부`, `${cafe.name} interior`)} />
+            <CafeArt w={1400} art={cafe.art} id={cafe.id} label={t(`${cafe.name} 내부`, `${cafe.name} interior`)} />
           </div>
           <div>
-            <CafeArt art={cafe.art} shot={1} label={t(`${cafe.name} 테이블`, `${cafe.name} table`)} />
+            <CafeArt art={cafe.art} id={cafe.id} shot={1} label={t(`${cafe.name} 테이블`, `${cafe.name} table`)} />
           </div>
           <div>
-            <CafeArt art={cafe.art} shot={2} label={t(`${cafe.name} 창가`, `${cafe.name} window`)} />
+            <CafeArt art={cafe.art} id={cafe.id} shot={2} label={t(`${cafe.name} 창가`, `${cafe.name} window`)} />
           </div>
         </div>
       </div>

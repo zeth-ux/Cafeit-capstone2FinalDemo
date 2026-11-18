@@ -294,7 +294,7 @@ export default function Landing() {
             <p style={{ marginTop: 8 }}>{t('오늘의 목적에 맞는, 나만의 카페.', 'The right café for today’s purpose.')}</p>
             <p style={{ marginTop: 4 }}>{t('SWag · 한양대학교 ERICA SW 캡스톤디자인', 'SWag · Hanyang University ERICA SW Capstone')}</p>
           </div>
-          <span>© 2026 Cafeit</span>
+          <span>{t('사진', 'Photos')}: Unsplash · © 2026 Cafeit</span>
         </div>
       </footer>
     </div>

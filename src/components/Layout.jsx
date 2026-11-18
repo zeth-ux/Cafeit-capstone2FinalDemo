@@ -80,7 +80,7 @@ export default function Layout() {
               <span>{t('개인정보 처리방침', 'Privacy')}</span>
             </div>
             <span>
-              © 2026 Cafeit ·{' '}
+              {t('사진', 'Photos')}: Unsplash · © 2026 Cafeit ·{' '}
               <button className="linklike" onClick={resetDemo} title="Alt+Shift+R">
                 {t('데모 초기화', 'Reset demo')}
               </button>
