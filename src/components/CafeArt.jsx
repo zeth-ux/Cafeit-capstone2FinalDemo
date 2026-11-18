@@ -243,11 +243,13 @@ export function photoUrl(photoId, w = 900) {
 
 // Real photo when we have one (cafe id or scene name), drawn illustration as fallback.
 export default function CafeArt({ art, shot = 0, label, id, scene, w = 900 }) {
-  const [failed, setFailed] = useState(false);
+  // 0 = local copy in /public/photos, 1 = Unsplash, 2 = drawn illustration
+  const [stage, setStage] = useState(0);
   const photoId = scene ? SCENE_PHOTOS[scene] : id ? PHOTOS[id]?.[shot] : null;
   const uid = useId().replace(/:/g, '');
-  if (photoId && !failed) {
-    return <img className="cafe-photo" src={photoUrl(photoId, w)} alt={label || ''} loading="lazy" decoding="async" onError={() => setFailed(true)} />;
+  if (photoId && stage < 2) {
+    const src = stage === 0 ? `/photos/${photoId}.jpg` : photoUrl(photoId, w);
+    return <img key={src} className="cafe-photo" src={src} alt={label || ''} loading="lazy" decoding="async" onError={() => setStage((n) => n + 1)} />;
   }
   const ids = { wall: `w${uid}`, sky: `s${uid}`, glow: `g${uid}` };
   const { variant, tone, accent } = art || { variant: 'window', tone: '#E8D2B8', accent: '#6C3100' };
