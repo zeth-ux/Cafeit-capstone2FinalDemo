@@ -3111,3 +3111,111 @@ html {
     font-size: 76px;
   }
 }
+
+/* ---------- App header: deep olive bar (light) / raised olive-black bar (night) ---------- */
+.header {
+  --hd-bg: #302f03;
+  --hd-line: #e2c96d;
+  --ink: #faf7f0;
+  --muted: rgba(250, 247, 240, 0.66);
+  --border: rgba(250, 247, 240, 0.18);
+  --surface: rgba(250, 247, 240, 0.08);
+  --cream-100: rgba(250, 247, 240, 0.16);
+  --action: #e2c96d;
+  --on-action: #302f03;
+  background: var(--hd-bg);
+  backdrop-filter: none;
+  border-bottom: 3px solid var(--hd-line);
+  color: var(--ink);
+}
+[data-theme='dark'] .header {
+  --hd-bg: #2b2810;
+  --on-action: #1a1708;
+  border-bottom-color: #8a7a3a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.header .logo .word-light {
+  display: none;
+}
+.header .logo .word-dark {
+  display: block;
+}
+.header .nav a.active {
+  color: #fff;
+  border-bottom: 3px solid var(--hd-line);
+  margin-bottom: -3px;
+}
+.header .nav a:hover {
+  color: #fff;
+}
+.header .chip-location,
+.header .chip-location:hover {
+  background: rgba(250, 247, 240, 0.1);
+  border: 1px solid rgba(250, 247, 240, 0.18);
+  color: #faf7f0;
+}
+.header .avatar {
+  background: #e2c96d;
+  color: #302f03;
+}
+.header .user {
+  color: #faf7f0;
+}
+
+/* ---------- Movable map ---------- */
+.map.is-movable {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.map.is-movable.is-dragging {
+  cursor: grabbing;
+}
+.map-world {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.map-world svg.base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.map-zoom {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-raise);
+}
+.map-zoom button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.map-zoom button + button {
+  border-top: 1px solid var(--border);
+}
+.map-zoom button:hover:not(:disabled) {
+  background: var(--cream-100);
+}
+.map-zoom button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+[data-theme='dark'] .map-world svg.base {
+  filter: brightness(0.42) saturate(0.85) sepia(0.25);
+}

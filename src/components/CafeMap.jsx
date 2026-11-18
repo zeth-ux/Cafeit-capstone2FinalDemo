@@ -1,4 +1,5 @@
-import { RotateCw } from 'lucide-react';
+import { LocateFixed, Minus, Plus, RotateCw } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { hoursLabel } from '../lib/live.js';
 import { useStore } from '../store.jsx';
@@ -44,25 +45,117 @@ export function MapBase() {
   );
 }
 
+const MIN = 1;
+const MAX = 3;
+const EDGE = 0.2; // how far (share of the map) you can drag past the edge
+
+// Drag to move, wheel or +/- to zoom. Our own drawn map, so no map API is needed.
+function usePanZoom() {
+  const ref = useRef(null);
+  const [view, setView] = useState({ s: 1, x: 0, y: 0 });
+  const drag = useRef(null);
+
+  const clamp = useCallback((v) => {
+    const el = ref.current;
+    if (!el) return v;
+    const W = el.clientWidth;
+    const H = el.clientHeight;
+    const s = Math.min(MAX, Math.max(MIN, v.s));
+    const minX = W - W * s - W * EDGE;
+    const minY = H - H * s - H * EDGE;
+    return { s, x: Math.min(W * EDGE, Math.max(minX, v.x)), y: Math.min(H * EDGE, Math.max(minY, v.y)) };
+  }, []);
+
+  const zoomAt = useCallback(
+    (factor, px, py) => {
+      setView((v) => {
+        const el = ref.current;
+        const cx = px ?? el.clientWidth / 2;
+        const cy = py ?? el.clientHeight / 2;
+        const s = Math.min(MAX, Math.max(MIN, v.s * factor));
+        const k = s / v.s;
+        return clamp({ s, x: cx - (cx - v.x) * k, y: cy - (cy - v.y) * k });
+      });
+    },
+    [clamp],
+  );
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const r = el.getBoundingClientRect();
+      zoomAt(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - r.left, e.clientY - r.top);
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [zoomAt]);
+
+  const handlers = {
+    onPointerDown: (e) => {
+      if (e.button !== 0 || e.target.closest('button, a, .map-preview')) return;
+      drag.current = { px: e.clientX, py: e.clientY, x: view.x, y: view.y };
+      e.currentTarget.setPointerCapture(e.pointerId);
+      e.currentTarget.classList.add('is-dragging');
+    },
+    onPointerMove: (e) => {
+      const d = drag.current;
+      if (!d) return;
+      setView((v) => clamp({ s: v.s, x: d.x + e.clientX - d.px, y: d.y + e.clientY - d.py }));
+    },
+    onPointerUp: (e) => {
+      drag.current = null;
+      e.currentTarget.classList.remove('is-dragging');
+    },
+  };
+  handlers.onPointerCancel = handlers.onPointerUp;
+
+  return { ref, view, handlers, zoomAt, reset: () => setView({ s: 1, x: 0, y: 0 }) };
+}
+
+// position of something placed at (x%, y%) of the map, after pan + zoom
+const at = (pct, axis) => `calc(${pct}% * var(--s) + var(--t${axis}))`;
+
 export default function CafeMap({ cafes, purpose, activeId, onSelect, dimIds = [] }) {
   const { showToast, t, lang } = useStore();
   const active = cafes.find((c) => c.id === activeId);
+  const { ref, view, handlers, zoomAt, reset } = usePanZoom();
   return (
-    <div className="map" aria-label={t('ERICA 주변 카페 지도', 'Map of cafés near ERICA')}>
-      <MapBase />
+    <div
+      ref={ref}
+      className="map is-movable"
+      aria-label={t('ERICA 주변 카페 지도', 'Map of cafés near ERICA')}
+      style={{ '--s': view.s, '--tx': `${view.x}px`, '--ty': `${view.y}px` }}
+      {...handlers}
+    >
+      <div className="map-world" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.s})` }}>
+        <MapBase />
+      </div>
       {LABELS.map((l) => (
-        <span key={l.t} className="map-label" style={{ left: `${l.x}%`, top: `${l.y}%`, whiteSpace: 'pre-line' }}>
+        <span key={l.t} className="map-label" style={{ left: at(l.x, 'x'), top: at(l.y, 'y'), whiteSpace: 'pre-line' }}>
           {lang === 'en' ? l.en : l.t}
         </span>
       ))}
       <button className="btn btn-secondary btn-sm map-refresh" onClick={() => showToast(t('이 지역의 카페를 다시 찾았어요', 'Searched this area again'))}>
         <RotateCw size={14} /> {t('이 지역에서 다시 찾기', 'Search this area')}
       </button>
+      <div className="map-zoom" role="group" aria-label={t('지도 확대/축소', 'Map zoom')}>
+        <button type="button" onClick={() => zoomAt(1.3)} disabled={view.s >= MAX} aria-label={t('확대', 'Zoom in')}>
+          <Plus size={16} />
+        </button>
+        <button type="button" onClick={() => zoomAt(1 / 1.3)} disabled={view.s <= MIN} aria-label={t('축소', 'Zoom out')}>
+          <Minus size={16} />
+        </button>
+        <button type="button" onClick={reset} aria-label={t('처음 위치로', 'Reset view')}>
+          <LocateFixed size={16} />
+        </button>
+      </div>
       {cafes.map((c) => (
         <button
           key={c.id}
           className={`pin ${c.id === activeId ? 'is-active' : ''} ${dimIds.includes(c.id) ? 'is-dim' : ''}`}
-          style={{ left: `${c.map.x}%`, top: `${c.map.y}%` }}
+          style={{ left: at(c.map.x, 'x'), top: at(c.map.y, 'y') }}
           onClick={() => onSelect(c.id)}
           aria-label={t(`${c.name}, 적합도 ${c.scores[purpose]}점`, `${c.name}, fit ${c.scores[purpose]}`)}
         >
